@@ -71,7 +71,7 @@ test.fillna(-1, inplace=True)
 
 #divide train into a new train and test subset
 t1 = train[((train.year == 2013) | ((train.year == 2014) & (train.month < 8)))]
-t2 = train[((train.year == 2014) & (train.month >= 8))]
+t2 = train[((train.year == 2014) & (train.month == 8))]
 
 #assigning predictor and target
 X_t1 = t1.drop(["hotel_cluster", "is_booking", "year", "cnt"], axis=1)
