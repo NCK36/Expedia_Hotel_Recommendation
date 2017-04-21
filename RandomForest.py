@@ -123,7 +123,7 @@ importance[indices]
 #predict on test dataset
 pred = []
 for i in range(len(test_data)):
-    pred[i] = model.predict_proba(test_data[i])
+    pred.append(model.predict_proba(test_data[i]))
 prediction = lambda pred: [item for sublist in pred for item in sublist]
 
 a = prediction.argsort(axis = 1)[:,-5:]
