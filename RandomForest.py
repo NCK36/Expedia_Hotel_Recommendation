@@ -13,7 +13,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 #Reading and loading the data
 destinations = pd.read_csv("destinations.csv")
-test = pd.read_csv("test.csv", nrows=100000)
+test = pd.read_csv("test.csv", nrows=250000)
 train = pd.read_csv("train.csv", nrows = 5000000)
 train.head()
 
