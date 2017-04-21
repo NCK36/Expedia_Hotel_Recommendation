@@ -126,7 +126,7 @@ for i in range(len(test_data)):
     pred.append(model.predict_proba(test_data[i]))
 prediction = lambda pred: [item for sublist in pred for item in sublist]
 
-a = prediction.argsort(axis = 1)[:,-5:]
+a = np.argsort(prediction, axis = 1)[:,-5:]
 
 cluster_dict = {}
 for (k,v) in enumerate(model_train.classes_):
