@@ -8,14 +8,13 @@ This is a temporary script file.
 import pandas as pd
 import datetime
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 
 #Reading and loading the data
-destinations = pd.read_csv("destinations.csv")
-test = pd.read_csv("test.csv")
-train = pd.read_csv("train.csv")
+destinations = pd.read_csv("destinations.csv", low_memory=True)
+test = pd.read_csv("test.csv", low_memory=True)
+train = pd.read_csv("train.csv", low_memory=True)
 train.head()
 
 #Feature Engineering
@@ -88,10 +87,6 @@ importance = model_train.feature_importances_
 indices = np.argsort(importance)[::-1][:10]
 importance[indices]
 
-plt.barh(range(10), importance[indices], color='r')
-plt.yticks(range(10), X_t1.columns[indices])
-plt.xlabel('Feature Importance')
-plt.show()
 
 #storing different hotel clusters in a dictionary
 len(model_train.classes_)
@@ -121,11 +116,6 @@ model.fit(train1, target)
 importance = model.feature_importances_
 indices = np.argsort(importance)[::-1][:10]
 importance[indices]
-
-plt.barh(range(10), importance[indices], color="r")
-plt.yticks(range(10), train1.columns[indices])
-plt.xlabel("Feature Importance")
-plt.show()
 
 prediction = model.predict_proba(test1)  #predict on test dataset
 a = prediction.argsort(axis = 1)[:,-5:]
