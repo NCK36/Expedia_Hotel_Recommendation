@@ -13,7 +13,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 #Reading and loading the data
 destinations = pd.read_csv("destinations.csv")
-test = pd.read_csv("test.csv", nrows=250000)
+test = pd.read_csv("test.csv")
 train = pd.read_csv("train.csv", nrows = 5000000)
 train.head()
 
@@ -70,7 +70,7 @@ train.fillna(-1, inplace=True)
 test.fillna(-1, inplace=True)
 
 #divide train into a new train and test subset
-t1 = train[((train.year == 2013) | ((train.year == 2014) & (train.month < 8)))]
+t1 = train[((train.year == 2014) & (train.month < 8))]
 t2 = train[((train.year == 2014) & (train.month == 8))]
 
 #assigning predictor and target
@@ -109,6 +109,9 @@ target = train["hotel_cluster"]
 train1 = train.drop(["hotel_cluster", "is_booking", "year", "cnt"], axis=1)
 test1 = test.drop(["id", "year"], axis=1)
 
+#split test1 in 5 subset
+test_data = np.array_split(test1, 5)
+
 #Using RandomForest
 model = RandomForestClassifier(n_estimators = 31, max_depth = 10, random_state = 125)
 model.fit(train1, target)
@@ -117,7 +120,15 @@ importance = model.feature_importances_
 indices = np.argsort(importance)[::-1][:10]
 importance[indices]
 
-prediction = model.predict_proba(test1)  #predict on test dataset
+#predict on test dataset
+pred1 = model.predict_proba(test_data[0])
+pred2 = model.predict_proba(test_data[1])
+pred3 = model.predict_proba(test_data[2])
+pred4 = model.predict_proba(test_data[3])
+pred5 = model.predict_proba(test_data[4])
+
+#combine all predictions in 1
+prediction = pred1+pred2+pred3+pred4+pred5
 a = prediction.argsort(axis = 1)[:,-5:]
 
 cluster_dict = {}
