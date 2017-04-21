@@ -110,7 +110,7 @@ train1 = train.drop(["hotel_cluster", "is_booking", "year", "cnt"], axis=1)
 test1 = test.drop(["id", "year"], axis=1)
 
 #split test1 in 5 subset
-test_data = np.array_split(test1, 5)
+test_data = np.array_split(test1, 6)
 
 #Using RandomForest
 model = RandomForestClassifier(n_estimators = 31, max_depth = 10, random_state = 125)
@@ -126,9 +126,10 @@ pred2 = model.predict_proba(test_data[1])
 pred3 = model.predict_proba(test_data[2])
 pred4 = model.predict_proba(test_data[3])
 pred5 = model.predict_proba(test_data[4])
+pred6 = model.predict_proba(test_data[5])
 
 #combine all predictions in 1
-prediction = pred1+pred2+pred3+pred4+pred5
+prediction = pred1+pred2+pred3+pred4+pred5+pred6
 a = prediction.argsort(axis = 1)[:,-5:]
 
 cluster_dict = {}
