@@ -12,9 +12,9 @@ from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 
 #Reading and loading the data
-destinations = pd.read_csv("destinations.csv", low_memory=True)
-test = pd.read_csv("test.csv", low_memory=True)
-train = pd.read_csv("train.csv", low_memory=True)
+destinations = pd.read_csv("destinations.csv")
+test = pd.read_csv("test.csv")
+train = pd.read_csv("train.csv", nrows = 10000000)
 train.head()
 
 #Feature Engineering
