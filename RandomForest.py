@@ -121,7 +121,7 @@ indices = np.argsort(importance)[::-1][:10]
 importance[indices]
 
 #predict on test dataset
-prediction = []
+pred = []
 for i in range(len(test_data)):
     pred[i] = model.predict_proba(test_data[i])
 prediction = lambda pred: [item for sublist in pred for item in sublist]
