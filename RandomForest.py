@@ -121,10 +121,12 @@ indices = np.argsort(importance)[::-1][:10]
 importance[indices]
 
 #predict on test dataset
-a = []
+b = []
 for i in range(len(test_data)):
     pred = model.predict_proba(test_data[i])
-    a.append(pred.argsort(axis=1)[:,-5:])
+    a = pred.argsort(axis=1)[:,-5:]
+    for j in a.flatten():
+        b.append(cluster_dict.get(i))
 #prediction = lambda pred: [item for sublist in pred for item in sublist]
 #prediction = pred[0]
 #for i in range(1, len(test_data)):
@@ -132,14 +134,11 @@ for i in range(len(test_data)):
 
 #a = prediction.argsort(axis = 1)[:,-5:]
 
-cluster_dict = {}
-for (k,v) in enumerate(model_train.classes_):
-    cluster_dict[k] = v
 
-b = []
-for i in a.flatten():
-    b.append(cluster_dict.get(i))
-cluster_pred = np.array(b).reshape(a.shape)
+#b = []
+#for i in a.flatten():
+ #   b.append(cluster_dict.get(i))
+cluster_pred = np.array(b).reshape(-1,5)
 
 cluster_pred = list(map(lambda x: " ".join(map(str,x)), cluster_pred))
 
