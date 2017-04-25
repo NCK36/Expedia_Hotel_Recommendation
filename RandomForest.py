@@ -6,7 +6,7 @@ This is a temporary script file.
 """
 
 import pandas as pd
-import datetime
+import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
@@ -87,6 +87,10 @@ importance = model_train.feature_importances_
 indices = np.argsort(importance)[::-1][:10]
 importance[indices]
 
+plt.barh(range(10), importance[indices], color='r')
+plt.yticks(range(10), X_t1.columns[indices])
+plt.xlabel('Feature Importance')
+plt.show()
 
 #storing different hotel clusters in a dictionary
 len(model_train.classes_)
@@ -119,6 +123,11 @@ model.fit(train1, target)
 importance = model.feature_importances_
 indices = np.argsort(importance)[::-1][:10]
 importance[indices]
+
+plt.barh(range(10), importance[indices], color="r")
+plt.yticks(range(10), train1.columns[indices])
+plt.xlabel("Feature Importance")
+plt.show()
 
 cluster_dict = {}
 for (k,v) in enumerate(model_train.classes_):
